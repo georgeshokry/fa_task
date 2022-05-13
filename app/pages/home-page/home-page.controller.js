@@ -9,7 +9,6 @@ angular
       return $sce.trustAsHtml(str.replace(regex, '<span class="c-user-lit__highlight">$&</span>'));
     };
   });
-
 function homePageController(Employees, $location) {
   const homePageVm = this;
   initValues();
