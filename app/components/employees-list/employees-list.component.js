@@ -6,7 +6,6 @@ angular
     controllerAs: 'EmployeesListComponentVm',
     bindings: {
       employeesList: '<',
-      searchValue: '<',
     },
   });
 

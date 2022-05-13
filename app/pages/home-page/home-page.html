@@ -1,13 +1,9 @@
 <div class="c-dashboard">
   <div class="c-filters__container">
-    <search-employees-input 
-      v-on-search-input="homePageVm.handleTyping"
-      v-on-reset-search-input="homePageVm.resetSearchInput"
-      search-value-prop="homePageVm.searchValue"
-    />
+    [Place search component here]
   </div>
 
-  <employees-list employees-list="homePageVm.employees" search-value="homePageVm.searchValue"></employees-list>
+  <employees-list employees-list="homePageVm.employees"></employees-list>
 
   <div class="c-dashboard__footer">
     <button class="c-button">
