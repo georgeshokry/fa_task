@@ -4,6 +4,9 @@
       <input type="date" placeholder="dd/mm/yyy" v-model="startDate" @input="emitDateInputs">
     <span class="c-search-date-input__label">End date:</span> 
       <input type="date" placeholder="dd/mm/yyy" v-model="endDate" @input="emitDateInputs">
+      <button class="c-button" @click="resetInputs">
+        Reset
+      </button>
   </div>
 </template>
 
@@ -22,6 +25,11 @@ export default {
     emitDateInputs(){
       this.$emit('dateInputs', this.startDate, this.endDate);
     },
+    resetInputs(){
+      this.startDate = '';
+      this.endDate = '';
+      this.emitDateInputs();
+    }
   },
 };
 </script>

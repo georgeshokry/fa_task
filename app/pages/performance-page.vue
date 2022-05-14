@@ -4,7 +4,7 @@
       <search-date-input @dateInputs="dateInputs"/>
     </div>
     <div class="c-dashboard__header">
-      <performance-chart-component :startData="startData" :endDate="endDate"/>
+      <performance-chart-component :startDate="startDate" :endDate="endDate"/>
     </div>
   </div>
 </template>
@@ -20,13 +20,13 @@ export default {
   },
   data() {
     return {
-      startData: '',
+      startDate: '',
       endDate: '',
     };
   },
   methods:{
-    dateInputs(startData, endDate) {
-      this.startData = startData;
+    dateInputs(startDate, endDate) {
+      this.startDate = startDate;
       this.endDate = endDate;
     },
   }

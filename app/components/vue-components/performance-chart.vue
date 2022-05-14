@@ -31,7 +31,7 @@ use([
 export default {
   name: "PerformanceChartComponent",
   props:{
-    startData: String,
+    startDate: String,
     endDate: String,
   },
   components: {
@@ -40,7 +40,7 @@ export default {
 
   data() {
     return {
-
+      calculatedXAxisData: []
     };
   },
 
@@ -75,7 +75,7 @@ export default {
         xAxis: {
           type: "category",
           showGrid: false,
-          data: this.xAxisData,
+          data: this.calculatedXAxisData,
           axisLine: {
             show: true,
           },
@@ -100,21 +100,6 @@ export default {
             cursor: "default",
             lineStyle: {
               width: 2,
-            },
-            markArea: {
-              itemStyle: {
-                color: 'rgba(255, 173, 177, 0.4)'
-              },
-              data: [
-                [
-                  {
-                    xAxis: this.convertedStartDate
-                  },
-                  {
-                    xAxis: this.convertedEndDate
-                  }
-                ],
-              ]
             }
           },
         ],
@@ -128,24 +113,61 @@ export default {
     yAxisData() {
       return this.getPerformanceData.map((item) => +item.performance * 100);
     },
-    convertedStartDate(){
-      return this.startData ? this.formatDate(this.startData) : '';
-    },
-    convertedEndDate(){
-      return this.endDate ? this.formatDate(this.endDate) : '';
-    },
     getPerformanceData(){
       return this.$store.state.performanceData;
     }
   },
-  mounted(){
+  watch:{
+    startDate:{
+      handler(newVal){
+        this.searchInDateRange(newVal, this.endDate);
+      }
+    },
+    endDate:{
+      handler(newVal){
+        this.searchInDateRange(this.startDate, newVal);
+      }
+    },
+    xAxisData(xAxisData){
+      this.calculatedXAxisData = xAxisData;
+    }
+  },
+  created(){
     this.$store.dispatch('fetchPerformanceChartData');
   },
   methods: {
     formatDate(dateInMs) {
       return moment(dateInMs).format("DD MMM YYYY");
     },
-    
+    formatPerformance(performance){
+      return +performance * 100;
+    },
+    searchInDateRange(startDate, endDate) {
+      if(startDate  && endDate){
+        let dateComparison = moment(this.formatDate(startDate)).isBefore(this.formatDate(endDate));
+        let dateRange = this.dateRange(startDate, endDate);
+        if(dateComparison){
+          let finalData = [];
+          this.getPerformanceData.forEach((item)=>{
+            if(dateRange.includes(this.formatDate(item.date_ms))){
+              finalData.push(this.formatDate(item.date_ms))
+            }
+          })
+          this.calculatedXAxisData = finalData;
+        }
+      } else{
+        this.calculatedXAxisData = this.xAxisData;
+      }
+    },
+    dateRange(startDate, endDate) {
+      let dateArray = [];
+      let currentDate = new Date(startDate);
+      while (currentDate <= new Date(endDate)) {
+        dateArray.push(this.formatDate(new Date(currentDate)));
+        currentDate.setUTCDate(currentDate.getUTCDate() + 1);
+      }
+      return dateArray;
+    }
   },
 };
 </script>
