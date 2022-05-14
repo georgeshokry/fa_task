@@ -101,21 +101,21 @@ export default {
             lineStyle: {
               width: 2,
             },
-                  markArea: {
-        itemStyle: {
-          color: 'rgba(255, 173, 177, 0.4)'
-        },
-        data: [
-          [
-            {
-              xAxis: this.convertedStartDate
-            },
-            {
-              xAxis: this.convertedEndDate
+            markArea: {
+              itemStyle: {
+                color: 'rgba(255, 173, 177, 0.4)'
+              },
+              data: [
+                [
+                  {
+                    xAxis: this.convertedStartDate
+                  },
+                  {
+                    xAxis: this.convertedEndDate
+                  }
+                ],
+              ]
             }
-          ],
-        ]
-      }
           },
         ],
       };
