@@ -64,6 +64,9 @@ export default {
           confine: false,
           hideDelay: 0,
           padding: 0,
+          formatter: (params) => {
+              return this.drawChartTooltip(params);
+          },
         },
         grid: {
           left: "30px",
@@ -103,6 +106,28 @@ export default {
             }
           },
         ],
+        // allow line category on chart
+        visualMap: {
+          right: 0,
+          top: 60,
+          pieces: [
+            {
+              gt: 80,
+              lt: 100,
+              color: 'green'
+            },
+            {
+              gt: 50,
+              lt: 80,
+              color: 'yellow'
+            },
+            {
+              gt: 0,
+              lt: 50,
+              color: 'red'
+            }
+          ]
+        },
       };
     },
 
@@ -167,6 +192,17 @@ export default {
         currentDate.setUTCDate(currentDate.getUTCDate() + 1);
       }
       return dateArray;
+    },
+    drawChartTooltip(params){
+      return `
+      <div class="c-chart-tooltip__container">
+        <div class="c-chart-tooltip__title">${params[0].axisValue}</div>
+        <div class="c-chart-tooltip__value">
+          ${params[0].marker}
+          Team Performance Index: ${params[0].value}%
+        </div>
+      </div>
+      `
     }
   },
 };
