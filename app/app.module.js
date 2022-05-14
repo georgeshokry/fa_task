@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import 'ngVue';
 import 'ngVue/build/plugins.js';
+import store from './store/store';
 import PerformancePageComponent from './pages/performance-page.vue';
 import PerformanceChartComponent from './components/vue-components/performance-chart.vue';
 import SearchEmployeesInputComponent from './components/vue-components/search-employees-input.vue';
@@ -20,4 +21,10 @@ angular.module('appModule').directive('vPerformanceChart', (createVueComponent) 
 
 angular.module('appModule').directive('searchEmployeesInput', (createVueComponent) => {
   return createVueComponent(Vue.component('SearchEmployeesInput', SearchEmployeesInputComponent));
+});
+
+angular.module('appModule').config(($ngVueProvider) => {
+  $ngVueProvider.setRootVueInstanceProps({
+    store: store,
+  });
 });
