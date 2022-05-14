@@ -8,6 +8,7 @@
     "@vue/server-test-utils": "1",
     "@vue/test-utils": "1",
     "angular": "^1.8.2",
+    "angular-ui-router": "^1.0.30",
     "echarts": "^5.2.2",
     "moment": "^2.29.1",
     "ngVue": "^1.7.8",

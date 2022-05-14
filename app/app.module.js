@@ -5,6 +5,7 @@ import store from './store/store';
 import PerformancePageComponent from './pages/performance-page.vue';
 import PerformanceChartComponent from './components/vue-components/performance-chart.vue';
 import SearchEmployeesInputComponent from './components/vue-components/search-employees-input.vue';
+import notFound from './components/vue-components/not-found.vue';
 angular.module('appModule', [
   'ui.router',
   'ngVue',
@@ -27,4 +28,8 @@ angular.module('appModule').config(($ngVueProvider) => {
   $ngVueProvider.setRootVueInstanceProps({
     store: store,
   });
+});
+
+angular.module('appModule').directive('vNotFound', (createVueComponent) => {
+  return createVueComponent(Vue.component('notFound', notFound));
 });
